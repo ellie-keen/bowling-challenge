@@ -2,42 +2,42 @@ function Game() {
   this.frame = 0;
   this.score = 0;
   this.remainingPins = 10;
-  this.firstBowl = true;
+  this.firstBowlOfFrame = true;
 };
 
 Game.prototype.bowl = function (pins) {
   this._checkPins(pins);
-  if (this.firstBowl) {
-    this._firstBowl(pins);
-  } else {
-    this._secondBowl();
-  };
+  this.firstBowlOfFrame ? this._firstBowl(pins) : this._secondBowl();
   this.score += pins;
-  return this._isGameOver();
+  var framesComplete = this.frame == 10;
+  return framesComplete ? this._isGameOver() : this._printScore(pins);
 };
 
 Game.prototype._checkPins = function(pins) {
-  if (this.remainingPins - pins < 0) {
+  var invalidNumberOfPins = (this.remainingPins - pins < 0);
+  if (invalidNumberOfPins) {
     throw `Bad bowl! There are ${this.remainingPins} pins remaining!`;
-  };
+  }
 };
 
 Game.prototype._isGameOver = function () {
-  if (this.frame == 10) {
-    this.frame = 0;
-    var finalScore = this.score;
-    this.score = 0;
-    return `Game over. You scored ${finalScore}!`;
-  };
+  this.frame = 0;
+  var finalScore = this.score;
+  this.score = 0;
+  return `Game over. You scored ${finalScore}!`;
 };
 
 Game.prototype._firstBowl = function (pins) {
   this.remainingPins -= pins;
-  this.firstBowl = false;
+  this.firstBowlOfFrame = false;
 };
 
 Game.prototype._secondBowl = function () {
   this.frame += 1;
-  this.firstBowl = true;
+  this.firstBowlOfFrame = true;
   this.remainingPins = 10;
+};
+
+Game.prototype._printScore = function (pins) {
+  return `You knocked down ${pins} pins! Your score is ${this.score}`;
 };

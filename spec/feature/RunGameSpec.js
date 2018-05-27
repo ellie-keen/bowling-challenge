@@ -78,6 +78,32 @@ describe('complete game', function(){
     expect(game.score).toEqual(0);
     expect(game.remainingPins).toEqual(10);
     expect(game.frame).toEqual(0);
-    expect(game.firstBowl).toBeTruthy();
+    expect(game.firstBowlOfFrame).toBeTruthy();
+  });
+
+});
+
+describe('gutter game', function(){
+  it('should state that the player has scored 0', function(){
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    game.bowl(0);
+    expect(game.bowl(0)).toEqual('Game over. You scored 0!');
   });
 });
