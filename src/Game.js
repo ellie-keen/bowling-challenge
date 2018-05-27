@@ -13,11 +13,21 @@ Game.prototype.bowl = function (pins) {
     this._secondBowl();
   };
   this.score += pins;
+  return this._isGameOver();
 };
 
 Game.prototype._checkPins = function(pins) {
   if (this.remainingPins - pins < 0) {
     throw `Bad bowl! There are ${this.remainingPins} pins remaining!`;
+  };
+};
+
+Game.prototype._isGameOver = function () {
+  if (this.frame == 10) {
+    this.frame = 0;
+    var finalScore = this.score;
+    this.score = 0;
+    return `Game over. You scored ${finalScore}!`;
   };
 };
 
@@ -29,4 +39,5 @@ Game.prototype._firstBowl = function (pins) {
 Game.prototype._secondBowl = function () {
   this.frame += 1;
   this.firstBowl = true;
+  this.remainingPins = 10;
 };

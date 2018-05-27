@@ -32,3 +32,52 @@ describe('bowling three balls', function(){
     expect(game.frame).toEqual(1);
   });
 });
+
+describe('two complete frames', function(){
+  it('should increase frame to 2, increment score and reset remaining pins', function(){
+    game.bowl(3);
+    game.bowl(4);
+    game.bowl(2);
+    game.bowl(5);
+    expect(game.frame).toEqual(2);
+    expect(game.score).toEqual(14);
+    expect(game.remainingPins).toEqual(10);
+  });
+});
+
+describe('complete game', function(){
+
+  beforeEach(function(){
+    game.bowl(3);
+    game.bowl(4);//1st frame
+    game.bowl(2);
+    game.bowl(5);//2nd frame
+    game.bowl(3);
+    game.bowl(4);//3rd
+    game.bowl(2);
+    game.bowl(5);//4th
+    game.bowl(3);
+    game.bowl(4);//5th
+    game.bowl(2);
+    game.bowl(5);//6th
+    game.bowl(3);
+    game.bowl(4);//7th
+    game.bowl(2);
+    game.bowl(5);//8th
+    game.bowl(3);
+    game.bowl(4);//9th
+    game.bowl(2);
+  });
+
+  it('should state game over and show score', function(){
+    expect(game.bowl(5)).toEqual('Game over. You scored 70!');
+  });
+
+  it('should reset the game', function(){
+    game.bowl(5);
+    expect(game.score).toEqual(0);
+    expect(game.remainingPins).toEqual(10);
+    expect(game.frame).toEqual(0);
+    expect(game.firstBowl).toBeTruthy();
+  });
+});
