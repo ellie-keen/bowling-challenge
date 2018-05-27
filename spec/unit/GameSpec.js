@@ -15,3 +15,15 @@ describe('when creating a new game', function(){
     expect(game.remainingPins).toEqual(10);
   });
 });
+
+describe('#bowl', function(){
+  it('should change remainingPins', function(){
+    game.bowl(5)
+    expect(game.remainingPins).toEqual(5);
+  });
+
+  it('should increase the score', function(){
+    game.bowl(5)
+    expect(game.score).toEqual(5);
+  });
+});

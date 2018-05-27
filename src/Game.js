@@ -3,3 +3,8 @@ function Game() {
   this.score = 0;
   this.remainingPins = 10;
 };
+
+Game.prototype.bowl = function (pins) {
+  this.remainingPins -= pins;
+  this.score += pins;
+};
